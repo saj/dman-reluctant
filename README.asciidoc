@@ -1,0 +1,23 @@
+== dman-reluctant
+
+Fetch Debian man pages from the Internet on-demand, and render them to a local pager.  This is a reimplementation of https://manpages.debian.org/experimental/debian-goodies/dman.1.en.html[`dman`] for people who prefer not to run Debian -- or Linux -- locally.
+
+Currently requires https://www.gnu.org/software/groff/[`groff`] (GNU `troff`).
+
+----
+go get -u github.com/saj/dman-reluctant/dman
+----
+
+To read the Debian manual for `dpkg-source(1)` as it exists in Debian `stable`, invoke:
+
+----
+dman dpkg-source
+----
+
+To read the same manual as it existed in an older Debian release, invoke:
+
+----
+dman --release jessie dpkg-source
+----
+
+Downloaded manual pages are cached to `~/.dman/cache`.
