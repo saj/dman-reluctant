@@ -21,3 +21,7 @@ dman --release jessie dpkg-source
 ----
 
 Downloaded manual pages are cached to `~/.dman/cache`.
+
+The `MANPAGER` and `PAGER` environment variables are honoured.
+
+`grotty` is told to draw boldfaced and underlined characters using https://en.wikipedia.org/wiki/Overstrike[overstriking].  Many pagers, like `less`, will make perfect sense of this simple drawing scheme.

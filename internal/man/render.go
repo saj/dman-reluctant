@@ -58,6 +58,16 @@ func typeset(r io.Reader) (*os.File, error) {
 	// search for options in the pager.  'ascii' is the crude hammer that forces
 	// these dashes to align.
 	groff := exec.Command("groff", "-T", "ascii", "-m", "mandoc", lineLength)
+	// grotty is documented to enable SGR mode by default.  (In SGR mode, grotty
+	// will emit ANSI escape sequences in order to represent boldfaced and
+	// underlined text.)  Contrary to the documentation, however, the grotty
+	// implementations on some platforms -- namely macOS -- do not seem to
+	// enable SGR mode by default.  This can lead to inconsistent output from
+	// dman.  Users on macOS will see overstriking while users on other
+	// platforms will see ANSI escape sequences.  SGR mode is explicitly
+	// disabled here, to force overstriking, in order to improve consistency.
+	// It is easier to explicitly disable SGR than it is to explicitly enable.
+	groff.Env = append(os.Environ(), "GROFF_NO_SGR=")
 	groff.Stdin = r
 	groff.Stdout = f
 	groff.Stderr = os.Stderr
